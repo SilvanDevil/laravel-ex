@@ -14,3 +14,5 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('home/{id}', 'Testtest@info');
+Route::get('query', 'MysqlController@query');
