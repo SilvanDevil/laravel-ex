@@ -16,3 +16,4 @@ Route::get('/', function () {
 });
 Route::get('home/{id}', 'Testtest@info');
 Route::get('query', 'MysqlController@query');
+Route::any('weixin/api', 'WeixinController@api');
