@@ -44,38 +44,66 @@ class weixinController extends Controller
                            <FuncFlag>0</FuncFlag>
                            </xml>";
             //订阅事件
-            if($postObj->Event=="subscribe")
-            {
-                $msgType = "text";
-                $contentStr = "欢迎关注silvan";
-                $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
-                echo $resultStr;
-            }
+//             if($postObj->Event=="subscribe")
+//             {
+//                 $msgType = "text";
+//                 $contentStr = "欢迎关注silvan";
+//                 $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
+//                 echo $resultStr;
+//             }
 
 
-            //语音识别
-            if($postObj->MsgType=="voice"){
-                $msgType = "text";
-                $contentStr = trim($postObj->Recognition,"。");
-                $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
-                echo  $resultStr;
-            }
+//             //语音识别
+//             if($postObj->MsgType=="voice"){
+//                 $msgType = "text";
+//                 $contentStr = trim($postObj->Recognition,"。");
+//                 $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
+//                 echo  $resultStr;
+//             }
 
-            //自动回复
-            if(!empty( $keyword ))
-            {
-                $msgType = "text";
-                $contentStr = "学习测试中！";
-                $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
-                echo $resultStr;
-            }else{
-                echo "Input something...";
-            }
+//             //自动回复
+//             if(!empty( $keyword ))
+//             {
+//                 $msgType = "text";
+//                 $contentStr = "学习测试中！";
+//                 $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
+//                 echo $resultStr;
+//             }else{
+//                 echo "Input something...";
+//             }
 
-        }else {
-            echo "";
-            exit;
-        }
+//         }else {
+//             echo "";
+//             exit;
+//         }
+             switch($msgType){
+  case "event":
+  if($event=="subscribe"){
+  $contentStr = "Hi,欢迎关注海仙日用百货!"."\n"."回复数字'1',了解店铺地址."."\n"."回复数字'2',了解商品种类.";
+  } 
+  break;
+  case "text":
+  switch($keyword){
+  case "1":
+  $contentStr = "店铺地址："."\n"."杭州市江干艮山西路233号新东升市场地下室第一排."; 
+  break;
+  case "2":
+  $contentStr = "商品种类:"."\n"."杯子、碗、棉签、水桶、垃圾桶、洗碗巾(刷)、拖把、扫把、"
+   ."衣架、粘钩、牙签、垃圾袋、保鲜袋(膜)、剪刀、水果刀、饭盒等.";
+  break;
+  default:
+  $contentStr = "对不起,你的内容我会稍后回复";
+  }
+  break;
+ }
+ $msgType = "text";
+ $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
+ echo $resultStr;
+ }else {
+ echo "";
+ exit;
+ }
+ }
     }
     //响应消息
 }
