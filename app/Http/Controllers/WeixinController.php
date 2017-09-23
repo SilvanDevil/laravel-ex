@@ -49,6 +49,8 @@ class weixinController extends Controller
             $fromUsername = $postObj->FromUserName;
             $toUsername = $postObj->ToUserName;
             $keyword = trim($postObj->Content);
+            $msgType = $postObj->MsgType;//消息类型
+            $event = $postObj->Event;//时间类型，subscribe（订阅）、unsubscribe（取消订阅）
             $time = time();
             $textTpl = "<xml>
                            <ToUserName><![CDATA[%s]]></ToUserName>
