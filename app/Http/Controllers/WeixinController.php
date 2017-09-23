@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests;
 use Illuminate\Http\Request;
-define("TOKEN", "dhsilvan");
 class weixinController extends Controller
 {
     /**
@@ -13,9 +12,25 @@ class weixinController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    //检查签名
+    private function checkSignature()
+    {
+        $signature = $_GET["signature"];
+        $timestamp = $_GET["timestamp"];
+        $nonce = $_GET["nonce"];
+        $token = "dhsilvan";
+        $tmpArr = array($token, $timestamp, $nonce);
+        sort($tmpArr, SORT_STRING);
+        $tmpStr = implode($tmpArr);
+        $tmpStr = sha1($tmpStr);
+        if($tmpStr == $signature){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     //验证消息
-
     public function api()
     {
         //get post data, May be due to the different environments
@@ -43,7 +58,7 @@ class weixinController extends Controller
                            <Content><![CDATA[%s]]></Content>
                            <FuncFlag>0</FuncFlag>
                            </xml>";
-            订阅事件
+            //订阅事件
             if($postObj->Event=="subscribe")
             {
                 $msgType = "text";
@@ -77,7 +92,9 @@ class weixinController extends Controller
             exit;
         }
 
- 
+
+
+
     }
     //响应消息
 }
