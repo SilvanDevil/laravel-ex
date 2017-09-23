@@ -103,7 +103,7 @@ class weixinController extends Controller
  echo "";
  exit;
  }
- }
+ 
     }
     //响应消息
 }
