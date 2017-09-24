@@ -63,7 +63,7 @@ class weixinController extends Controller
                 <Title><![CDATA[%s]]></Title> 
                 <Description><![CDATA[%s]]></Description>
                 <PicUrl><![CDATA[%s]]></PicUrl>
-                <Url><![CDATA[%s]]></Url>
+               <!--<Url><![CDATA[%s]]></Url>-->
                 </item>";
             $newsTplFoot = "</Articles>
                 <FuncFlag>0</FuncFlag>
@@ -117,7 +117,8 @@ class weixinController extends Controller
 
                     $FuncFlag = 0;
                     $footer = sprintf($newsTplFoot, $FuncFlag);
-                    echo  $header.$body.$footer;
+                    $results=$header.$body.$footer;
+                    echo  $results;
                 }else{
                     $msgType = "text";
                     $contentStr = "学习测试中！";
