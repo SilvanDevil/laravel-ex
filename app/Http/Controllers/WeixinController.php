@@ -41,7 +41,7 @@ class weixinController extends Controller
         //日志图片
 
         //extract post data
-        if (!empty($postStr)){
+      //  if (!empty($postStr)){
             /* libxml_disable_entity_loader is to prevent XML eXternal Entity Injection,
                the best way is to check the validity of xml by yourself */
             libxml_disable_entity_loader(true);
@@ -93,10 +93,10 @@ class weixinController extends Controller
 
             }
 
-        }else {
-            echo "";
-            exit;
-        }
+//        }else {
+//            echo "";
+//            exit;
+//        }
 
 
 
