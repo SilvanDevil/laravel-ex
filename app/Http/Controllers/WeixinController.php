@@ -66,7 +66,7 @@ class weixinController extends Controller
                <!--<Url><![CDATA[%s]]></Url>-->
                 </item>";
             $newsTplFoot = "</Articles>
-                <FuncFlag>0</FuncFlag>
+                <FuncFlag><![CDATA[%s]]></FuncFlag>
                 </xml>";
 
             $url = 'https://api.douban.com/v2/movie/in_theaters?count=10';
@@ -89,7 +89,7 @@ class weixinController extends Controller
             //订阅事件
             if ($postObj->Event == "subscribe") {
                 $msgType = "text";
-                $contentStr = "欢迎关注silvan，目前属于测试阶段";
+                $contentStr = "欢迎关注silvan，目前属于学习测试阶段";
                 $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                 echo $resultStr;
 
@@ -108,7 +108,7 @@ class weixinController extends Controller
             //自动回复
             if (!empty($keyword)) {
                 if($keyword=="电影预告"){
-                    $header = sprintf($newsTplHead, $fromUsername,$toUsername, time());
+                    $header = sprintf($newsTplHead, $fromUsername,$toUsername,$time);
                     $title = $a['title'];
                     $desc = $b['summary'];
                     $picUrl = $c['large'];
