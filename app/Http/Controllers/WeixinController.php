@@ -107,7 +107,7 @@ class weixinController extends Controller
 
             //自动回复
             if (!empty($keyword)) {
-                if($keyword==天气预报){
+                if($keyword=="电影预告"){
                     $header = sprintf($newsTplHead, $fromUsername,$toUsername, time());
                     $title = $a['title'];
                     $desc = $b['summary'];
@@ -118,11 +118,13 @@ class weixinController extends Controller
                     $FuncFlag = 0;
                     $footer = sprintf($newsTplFoot, $FuncFlag);
                     echo  $header.$body.$footer;
+                }else{
+                    $msgType = "text";
+                    $contentStr = "学习测试中！";
+                    $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
+                    echo $resultStr;
                 }
-                $msgType = "text";
-                $contentStr = "学习测试中！";
-                $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
-                echo $resultStr;
+
 
             } else {
                 echo "Input something...";
