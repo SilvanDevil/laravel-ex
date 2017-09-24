@@ -67,7 +67,7 @@ class weixinController extends Controller
                 $contentStr = "欢迎关注silvan";
                 $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                 echo $resultStr;
-                exit;
+
             }
 
 
@@ -77,7 +77,7 @@ class weixinController extends Controller
                 $contentStr = trim($postObj->Recognition,"。");
                 $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                 echo  $resultStr;
-                exit;
+
             }
 
             //自动回复
@@ -87,10 +87,10 @@ class weixinController extends Controller
                 $contentStr = "学习测试中！";
                 $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                 echo $resultStr;
-                exit();
+
             }else{
                 echo "Input something...";
-                exit;
+
             }
 
         }else {
