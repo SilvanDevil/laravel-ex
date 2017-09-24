@@ -58,16 +58,25 @@ class weixinController extends Controller
                 <CreateTime>%s</CreateTime>
                 <MsgType><![CDATA[news]]></MsgType>
                 <ArticleCount>1</ArticleCount>
-                <Articles>";
-            $newsTplBody = "<item>
+                <Articles>
+                <item>
                 <Title><![CDATA[%s]]></Title> 
                 <Description><![CDATA[%s]]></Description>
                 <PicUrl><![CDATA[%s]]></PicUrl>
                <!--<Url><![CDATA[%s]]></Url>-->
-                </item>";
-            $newsTplFoot = "</Articles>
-                <FuncFlag><![CDATA[%s]]></FuncFlag>
+                </item>
+                </Articles>
+                <FuncFlag>0</FuncFlag>
                 </xml>";
+//            $newsTplBody = "<item>
+//                <Title><![CDATA[%s]]></Title>
+//                <Description><![CDATA[%s]]></Description>
+//                <PicUrl><![CDATA[%s]]></PicUrl>
+//               <!--<Url><![CDATA[%s]]></Url>-->
+//                </item>";
+//            $newsTplFoot = "</Articles>
+//                <FuncFlag><![CDATA[%s]]></FuncFlag>
+//                </xml>";
 
             $url = 'https://api.douban.com/v2/movie/in_theaters?count=10';
             $result = file_get_contents($url);
@@ -108,16 +117,17 @@ class weixinController extends Controller
             //自动回复
             if (!empty($keyword)) {
                 if($keyword=="电影预告"){
-                    $header = sprintf($newsTplHead, $fromUsername,$toUsername,$time);
                     $title = $a['title'];
                     $desc = $b['summary'];
                     $picUrl = $c['large'];
+                    $results = sprintf($newsTplHead, $fromUsername,$toUsername,$time,$title, $desc, $picUrl);
+
                  //   $url = $newsContent['url'];
-                    $body = sprintf($newsTplBody, $title, $desc, $picUrl);
+                  //  $body = sprintf($newsTplBody, $title, $desc, $picUrl);
 
                     $FuncFlag = 0;
-                    $footer = sprintf($newsTplFoot, $FuncFlag);
-                    $results=$header.$body.$footer;
+                   // $footer = sprintf($newsTplFoot, $FuncFlag);
+               //     $results=$header.$body.$footer;
                     echo  $results;
                 }else{
                     $msgType = "text";
