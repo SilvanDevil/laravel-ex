@@ -24,7 +24,7 @@ class weixinController extends Controller
 //        }
 //    }
         //get post data, May be due to the different environments
-     //   $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];//php:input
+     //   $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];//php:input  收不到信息!!!!!!
         $postStr = file_get_contents("php://input");
         //写入日志  在同级目录下建立php_log.txt
         //chmod 777php_log.txt(赋权) chown wwwphp_log.txt(修改主)
@@ -51,10 +51,45 @@ class weixinController extends Controller
                            <Content><![CDATA[%s]]></Content>
                            <FuncFlag>0</FuncFlag>
                            </xml>";
+
+            $newsTplHead = "<xml>
+                <ToUserName><![CDATA[%s]]></ToUserName>
+                <FromUserName><![CDATA[%s]]></FromUserName>
+                <CreateTime>%s</CreateTime>
+                <MsgType><![CDATA[news]]></MsgType>
+                <ArticleCount>1</ArticleCount>
+                <Articles>";
+            $newsTplBody = "<item>
+                <Title><![CDATA[%s]]></Title> 
+                <Description><![CDATA[%s]]></Description>
+                <PicUrl><![CDATA[%s]]></PicUrl>
+                <Url><![CDATA[%s]]></Url>
+                </item>";
+            $newsTplFoot = "</Articles>
+                <FuncFlag>0</FuncFlag>
+                </xml>";
+
+            $url = 'https://api.douban.com/v2/movie/in_theaters?count=10';
+            $result = file_get_contents($url);
+            $jsonArray = json_decode($result,true);
+            $a['title']=$jsonArray['subjects'][0]['title'];
+            $c['large']=$jsonArray['subjects'][0]['images']['large'];
+
+            $url1 = 'https://api.douban.com/v2/movie/subject/25808075';
+            $result1 = file_get_contents($url1);
+            $jsonArray1 = json_decode($result1,true);
+            $b['summary']=$jsonArray1['summary'];
+
+//            for($i=1;$i<=9;$i++){
+//
+//                //  $dh['title']=;
+//                array_push($ds['title'],$jsonArray['subjects'][$i]['title']);
+//            }
+
             //订阅事件
             if ($postObj->Event == "subscribe") {
                 $msgType = "text";
-                $contentStr = "欢迎关注silvan";
+                $contentStr = "欢迎关注silvan，目前属于测试阶段";
                 $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                 echo $resultStr;
 
@@ -72,6 +107,18 @@ class weixinController extends Controller
 
             //自动回复
             if (!empty($keyword)) {
+                if($keyword==天气预报){
+                    $header = sprintf($newsTplHead, $fromUsername,$toUsername, time());
+                    $title = $a['title'];
+                    $desc = $b['summary'];
+                    $picUrl = $c['large'];
+                 //   $url = $newsContent['url'];
+                    $body = sprintf($newsTplBody, $title, $desc, $picUrl);
+
+                    $FuncFlag = 0;
+                    $footer = sprintf($newsTplFoot, $FuncFlag);
+                    echo  $header.$body.$footer;
+                }
                 $msgType = "text";
                 $contentStr = "学习测试中！";
                 $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
