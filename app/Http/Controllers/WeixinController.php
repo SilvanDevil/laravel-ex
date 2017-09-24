@@ -53,8 +53,8 @@ class weixinController extends Controller
             $event = $postObj->Event;//时间类型，subscribe（订阅）、unsubscribe（取消订阅）
             $time = time();
             $textTpl = "<xml>
-                           <ToUserName><![CDATA[%s]]></ToUserName>
-                           <FromUserName><![CDATA[%s]]></FromUserName>
+                           <ToUserName><![CDATA[$fromUsername]]></ToUserName>
+                           <FromUserName><![CDATA[$toUsername]]></FromUserName>
                            <CreateTime>%s</CreateTime>
                            <MsgType><![CDATA[%s]]></MsgType>
                            <Content><![CDATA[%s]]></Content>
