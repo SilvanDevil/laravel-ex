@@ -57,7 +57,7 @@ class weixinController extends Controller
                                <FromUserName><![CDATA[%s]]></FromUserName>
                                <CreateTime>%s</CreateTime>
                                <MsgType><![CDATA[%s]]></MsgType>
-                               <ArticleCount>1</ArticleCount>
+                               <ArticleCount>2</ArticleCount>
                                <Articles>";
                             
             $newsTplBody = "<item>
