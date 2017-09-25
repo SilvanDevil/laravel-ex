@@ -24,7 +24,7 @@ class weixinController extends Controller
 //        }
 //    }
         //get post data, May be due to the different environments
-     //   $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];//php:input  收不到信息!!!!!!
+        //   $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];//php:input  收不到信息!!!!!!
         $postStr = file_get_contents("php://input");
         //写入日志  在同级目录下建立php_log.txt
         //chmod 777php_log.txt(赋权) chown wwwphp_log.txt(修改主)
@@ -58,36 +58,38 @@ class weixinController extends Controller
                                <CreateTime>%s</CreateTime>
                                <MsgType><![CDATA[%s]]></MsgType>
                                <ArticleCount>1</ArticleCount>
-                               <Articles>
-                               <item>
-                               <Title><![CDATA[%s]]></Title> 
-                               <Description><![CDATA[%s]]></Description>
-                               <PicUrl><![CDATA[%s]]></PicUrl>
-                               <Url><![CDATA[%s]]></Url>
-                               </item>
-                               </Articles>
-                               </xml>";
-//            $newsTplBody = "<item>
-//                <Title><![CDATA[%s]]></Title>
-//                <Description><![CDATA[%s]]></Description>
-//                <PicUrl><![CDATA[%s]]></PicUrl>
-//               <!--<Url><![CDATA[%s]]></Url>-->
-//                </item>";
-//            $newsTplFoot = "</Articles>
-//                <FuncFlag><![CDATA[%s]]></FuncFlag>
-//                </xml>";
+                               <Articles>";
+                            
+            $newsTplBody = "<item>
+                <Title><![CDATA[%s]]></Title>
+                <Description><![CDATA[%s]]></Description>
+                <PicUrl><![CDATA[%s]]></PicUrl>
+                 <Url><![CDATA[%s]]></Url>
+                </item>";
+            $newsTplBody2 = "<item>
+                <Title><![CDATA[%s]]></Title>
+                <Description><![CDATA[%s]]></Description>
+                <PicUrl><![CDATA[%s]]></PicUrl>
+                 <Url><![CDATA[%s]]></Url>
+                </item>";
+            $newsTplFoot = "</Articles>
+                </xml>";
 
             $url = 'https://api.douban.com/v2/movie/in_theaters?count=10';
             $result = file_get_contents($url);
             $jsonArray = json_decode($result,true);
             $a['title']=$jsonArray['subjects'][0]['title'];
             $c['large']=$jsonArray['subjects'][0]['images']['large'];
-
+            $a1['title']=$jsonArray['subjects'][1]['title'];
+            $c1['large']=$jsonArray['subjects'][1]['images']['large'];
             $url1 = 'https://api.douban.com/v2/movie/subject/25808075';
             $result1 = file_get_contents($url1);
             $jsonArray1 = json_decode($result1,true);
             $b['summary']=$jsonArray1['summary'];
-
+            $url2 = 'https://api.douban.com/v2/movie/subject/22266126';
+            $result1 = file_get_contents($url1);
+            $jsonArray1 = json_decode($result1,true);
+            $b1['summary']=$jsonArray1['summary'];
 //            for($i=1;$i<=9;$i++){
 //
 //                //  $dh['title']=;
@@ -121,14 +123,21 @@ class weixinController extends Controller
                     $desc = $b['summary'];
                     $picUrl = $c['large'];
                     $Url='https://movie.douban.com/subject/25808075/mobile';
-                    $results = sprintf($newsTplHead, $fromUsername,$toUsername,$time,$msgType,$title, $desc, $picUrl,$Url);
+                    //$results = sprintf($newsTplHead, $fromUsername,$toUsername,$time,$msgType,$title, $desc, $picUrl,$Url);
+                    $header=sprintf($newsTplHead, $fromUsername,$toUsername,$time,$msgType);
+                    $body=sprintf($newsTplBody,$title, $desc, $picUrl,$Url);
 
-                 //   $url = $newsContent['url'];
-                  //  $body = sprintf($newsTplBody, $title, $desc, $picUrl);
+                    $title = $a1['title'];
+                    $desc = $b1['summary'];
+                    $picUrl = $c1['large'];
+                    $Url='https://movie.douban.com/subject/22266126/mobile';
+                    $body1=sprintf($newsTplBody2,$title, $desc, $picUrl,$Url);
+                    //   $url = $newsContent['url'];
+                    //  $body = sprintf($newsTplBody, $title, $desc, $picUrl);
 
                     $FuncFlag = 0;
-                   // $footer = sprintf($newsTplFoot, $FuncFlag);
-               //     $results=$header.$body.$footer;
+                    // $footer = sprintf($newsTplFoot, $FuncFlag);
+                     $results=$header.$body.$body1.$newsTplFoot;
                     echo  $results;
                 }else{
                     $msgType = "text";
@@ -151,8 +160,8 @@ class weixinController extends Controller
         }
     }
 
-        //检查签名
-        private function checkSignature()
+    //检查签名
+    private function checkSignature()
     {
         $signature = $_GET["signature"];
         $timestamp = $_GET["timestamp"];
