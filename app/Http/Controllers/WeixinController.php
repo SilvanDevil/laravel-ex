@@ -63,7 +63,7 @@ class weixinController extends Controller
                 <Title><![CDATA[%s]]></Title> 
                 <Description><![CDATA[%s]]></Description>
                 <PicUrl><![CDATA[%s]]></PicUrl>
-               <!--<Url><![CDATA[%s]]></Url>-->
+                <Url><![CDATA[%s]]></Url>
                 </item>
                 </Articles>
                 <FuncFlag>0</FuncFlag>
@@ -121,7 +121,8 @@ class weixinController extends Controller
                     $title = $a['title'];
                     $desc = $b['summary'];
                     $picUrl = $c['large'];
-                    $results = sprintf($newsTplHead, $fromUsername,$toUsername,$time,$msgType,$title, $desc, $picUrl);
+                    $Url='https://movie.douban.com/celebrity/1002708';
+                    $results = sprintf($newsTplHead, $fromUsername,$toUsername,$time,$msgType,$title, $desc, $picUrl,$Url);
 
                  //   $url = $newsContent['url'];
                   //  $body = sprintf($newsTplBody, $title, $desc, $picUrl);
