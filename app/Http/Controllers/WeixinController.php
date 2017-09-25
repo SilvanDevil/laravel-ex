@@ -66,6 +66,7 @@ class weixinController extends Controller
                 <Url><![CDATA[%s]]></Url>
                 </item>
                 </Articles>
+                <FuncFlag>0</FuncFlag>
                 </xml>";
 //            $newsTplBody = "<item>
 //                <Title><![CDATA[%s]]></Title>
