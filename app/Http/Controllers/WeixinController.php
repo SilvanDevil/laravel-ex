@@ -56,7 +56,7 @@ class weixinController extends Controller
                 <ToUserName><![CDATA[%s]]></ToUserName>
                 <FromUserName><![CDATA[%s]]></FromUserName>
                 <CreateTime>%s</CreateTime>
-                <MsgType><![CDATA[news]]></MsgType>
+                <MsgType><![CDATA[%s]]></MsgType>
                 <ArticleCount>1</ArticleCount>
                 <Articles>
                 <item>
@@ -117,10 +117,11 @@ class weixinController extends Controller
             //自动回复
             if (!empty($keyword)) {
                 if($keyword=="电影预告"){
+                    $msgType="text";
                     $title = $a['title'];
                     $desc = $b['summary'];
                     $picUrl = $c['large'];
-                    $results = sprintf($newsTplHead, $fromUsername,$toUsername,$time,$title, $desc, $picUrl);
+                    $results = sprintf($newsTplHead, $fromUsername,$toUsername,$time,$msgType,$title, $desc, $picUrl);
 
                  //   $url = $newsContent['url'];
                   //  $body = sprintf($newsTplBody, $title, $desc, $picUrl);
