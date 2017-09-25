@@ -12,7 +12,21 @@ class weixinController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-
+    public  function   searchMovieInfo($movie){
+        $UrlSr='https://api.douban.com/v2/movie/search?q='.$movie;
+        $result = file_get_contents($UrlSr);
+        $jsonArray = json_decode($result,true);
+        $id=$jsonArray['subjects'][0]['id'];
+        $UrlSrr='https://api.douban.com/v2/movie/subject/'.$id;
+        $resultr = file_get_contents($UrlSrr);
+        $jsonArray = json_decode($resultr,true);
+        $title=$jsonArray['title'];
+        $summary=$jsonArray['summary'];
+        $image_Url=$jsonArray['images']['large'];
+        $mobile_url=$jsonArray['mobile_url'];
+        $arrayInfo=array($title,$summary,$image_Url,$mobile_url);
+        return $arrayInfo;
+    }
 
     //验证消息
     public function api()
@@ -127,11 +141,11 @@ class weixinController extends Controller
             if (!empty($keyword)) {
                 if(preg_match('/[\x{4e00}-\x{9fa5}]+/u',$keyword)){
                     $msgType="news";
-                    $id=$this->searchMovieId($keyword);
-                    $title = $this->searchMovieTitle($id);
-                    $desc = $this->searchMovieSummary($id);
-                    $picUrl = $this->searchMovieImage($id);
-                    $Url = $this->searchMovieMobileUrl($id);
+                   // $id=$this->searchMovieId($keyword);
+                    $title = $this->searchMovieInfo($keyword)[0];
+                    $desc = $this->searchMovieInfo($keyword)[1];
+                    $picUrl = $this->searchMovieInfo($keyword)[2];
+                    $Url = $this->searchMovieInfo($keyword)[3];
                     $results = sprintf($newsTpl, $fromUsername,$toUsername,$time,$msgType,$title, $desc, $picUrl,$Url);
                     echo  $results;
                    // $header=sprintf($newsTplHead, $fromUsername,$toUsername,$time,$msgType);
@@ -182,43 +196,45 @@ class weixinController extends Controller
         }
     }
 
-    public  function  searchMovieId($movie){
-        $UrlSr='https://api.douban.com/v2/movie/search?q='.$movie;
-        $result = file_get_contents($UrlSr);
-        $jsonArray = json_decode($result,true);
-        $id=$jsonArray['subjects'][0]['id'];
-        return  $id;
-    }
+//    public  function  searchMovieId($movie){
+//        $UrlSr='https://api.douban.com/v2/movie/search?q='.$movie;
+//        $result = file_get_contents($UrlSr);
+//        $jsonArray = json_decode($result,true);
+//        $id=$jsonArray['subjects'][0]['id'];
+//        return  $id;
+//    }
+//
+//    public function   searchMovieSummary($id){
+//        $UrlSr='https://api.douban.com/v2/movie/subject/'.$id;
+//        $result = file_get_contents($UrlSr);
+//        $jsonArray = json_decode($result,true);
+//        $summary=$jsonArray['summary'];
+//        return  $summary;
+//    }
+//
+//    public  function   searchMovieTitle($id){
+//        $UrlSr='https://api.douban.com/v2/movie/subject/'.$id;
+//        $result = file_get_contents($UrlSr);
+//        $jsonArray = json_decode($result,true);
+//        $title=$jsonArray['title'];
+//        return $title;
+//    }
+//    public  function   searchMovieImage($id){
+//        $UrlSr='https://api.douban.com/v2/movie/subject/'.$id;
+//        $result = file_get_contents($UrlSr);
+//        $jsonArray = json_decode($result,true);
+//        $image_Url=$jsonArray['images']['large'];
+//        return $image_Url;
+//    }
+//    public  function   searchMovieMobileUrl($id){
+//        $UrlSr='https://api.douban.com/v2/movie/subject/'.$id;
+//        $result = file_get_contents($UrlSr);
+//        $jsonArray = json_decode($result,true);
+//        $mobile_url=$jsonArray['mobile_url'];
+//        return  $mobile_url;
+//    }
 
-    public function   searchMovieSummary($id){
-        $UrlSr='https://api.douban.com/v2/movie/subject/'.$id;
-        $result = file_get_contents($UrlSr);
-        $jsonArray = json_decode($result,true);
-        $summary=$jsonArray['summary'];
-        return  $summary;
-    }
 
-    public  function   searchMovieTitle($id){
-        $UrlSr='https://api.douban.com/v2/movie/subject/'.$id;
-        $result = file_get_contents($UrlSr);
-        $jsonArray = json_decode($result,true);
-        $title=$jsonArray['title'];
-        return $title;
-    }
-    public  function   searchMovieImage($id){
-        $UrlSr='https://api.douban.com/v2/movie/subject/'.$id;
-        $result = file_get_contents($UrlSr);
-        $jsonArray = json_decode($result,true);
-        $image_Url=$jsonArray['images']['large'];
-        return $image_Url;
-    }
-    public  function   searchMovieMobileUrl($id){
-        $UrlSr='https://api.douban.com/v2/movie/subject/'.$id;
-        $result = file_get_contents($UrlSr);
-        $jsonArray = json_decode($result,true);
-        $mobile_url=$jsonArray['mobile_url'];
-        return  $mobile_url;
-    }
 
 
 
