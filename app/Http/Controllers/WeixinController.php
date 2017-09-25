@@ -96,7 +96,7 @@ class weixinController extends Controller
 
             //订阅事件
             if ($postObj->Event == "subscribe") {
-                $msgType = "news";
+                $msgType = "text";
                 $contentStr = "欢迎关注silvan，目前属于学习测试阶段";
                 $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                 echo $resultStr;
@@ -116,7 +116,7 @@ class weixinController extends Controller
             //自动回复
             if (!empty($keyword)) {
                 if($keyword=="电影预告"){
-                    $msgType="text";
+                    $msgType="news";
                     $title = $a['title'];
                     $desc = $b['summary'];
                     $picUrl = $c['large'];
