@@ -87,7 +87,7 @@ class weixinController extends Controller
             $jsonArray1 = json_decode($result1,true);
             $b['summary']=$jsonArray1['summary'];
             $url2 = 'https://api.douban.com/v2/movie/subject/22266126';
-            $result1 = file_get_contents($url1);
+            $result1 = file_get_contents($url2);
             $jsonArray1 = json_decode($result1,true);
             $b1['summary']=$jsonArray1['summary'];
 //            for($i=1;$i<=9;$i++){
