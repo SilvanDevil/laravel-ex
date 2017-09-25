@@ -81,7 +81,7 @@ class weixinController extends Controller
             $result = file_get_contents($url);
             $jsonArray = json_decode($result,true);
             $a['title']=$jsonArray['subjects'][0]['title'];
-            $c['large']=$jsonArray['subjects'][0]['images']['large'];
+            $c['large']=$jsonArray['subjects'][0]['images']['small'];
 
             $url1 = 'https://api.douban.com/v2/movie/subject/25808075';
             $result1 = file_get_contents($url1);
