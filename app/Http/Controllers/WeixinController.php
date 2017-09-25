@@ -120,7 +120,7 @@ class weixinController extends Controller
                     $title = $a['title'];
                     $desc = $b['summary'];
                     $picUrl = $c['large'];
-                    $Url='https://movie.douban.com/celebrity/1002708';
+                    $Url='https://movie.douban.com/subject/25808075/mobile';
                     $results = sprintf($newsTplHead, $fromUsername,$toUsername,$time,$msgType,$title, $desc, $picUrl,$Url);
 
                  //   $url = $newsContent['url'];
