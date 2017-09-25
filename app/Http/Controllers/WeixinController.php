@@ -81,7 +81,7 @@ class weixinController extends Controller
             $result = file_get_contents($url);
             $jsonArray = json_decode($result,true);
             $a['title']=$jsonArray['subjects'][0]['title'];
-            $c['small']=$jsonArray['subjects'][0]['images']['small'];
+            $c['large']=$jsonArray['subjects'][0]['images']['large'];
 
             $url1 = 'https://api.douban.com/v2/movie/subject/25808075';
             $result1 = file_get_contents($url1);
@@ -119,7 +119,7 @@ class weixinController extends Controller
                     $msgType="news";
                     $title = $a['title'];
                     $desc = $b['summary'];
-                    $picUrl = $c['small'];
+                    $picUrl = $c['large'];
                     $Url='https://movie.douban.com/celebrity/1002708';
                     $results = sprintf($newsTplHead, $fromUsername,$toUsername,$time,$msgType,$title, $desc, $picUrl,$Url);
 
