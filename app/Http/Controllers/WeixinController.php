@@ -53,21 +53,20 @@ class weixinController extends Controller
                            </xml>";
 
             $newsTplHead = "<xml>
-                <ToUserName><![CDATA[%s]]></ToUserName>
-                <FromUserName><![CDATA[%s]]></FromUserName>
-                <CreateTime>%s</CreateTime>
-                <MsgType><![CDATA[%s]]></MsgType>
-                <ArticleCount>1</ArticleCount>
-                <Articles>
-                <item>
-                <Title><![CDATA[%s]]></Title> 
-                <Description><![CDATA[%s]]></Description>
-                <PicUrl><![CDATA[%s]]></PicUrl>
-                <Url><![CDATA[%s]]></Url>
-                </item>
-                </Articles>
-                <FuncFlag>0</FuncFlag>
-                </xml>";
+                               <ToUserName><![CDATA[%s]]></ToUserName>
+                               <FromUserName><![CDATA[%s]]></FromUserName>
+                               <CreateTime>%s</CreateTime>
+                               <MsgType><![CDATA[%s]]></MsgType>
+                               <ArticleCount>1</ArticleCount>
+                               <Articles>
+                               <item>
+                               <Title><![CDATA[%s]]></Title> 
+                               <Description><![CDATA[%s]]></Description>
+                               <PicUrl><![CDATA[%s]]></PicUrl>
+                               <Url><![CDATA[%s]]></Url>
+                               </item>
+                               </Articles>
+                               </xml>";
 //            $newsTplBody = "<item>
 //                <Title><![CDATA[%s]]></Title>
 //                <Description><![CDATA[%s]]></Description>
