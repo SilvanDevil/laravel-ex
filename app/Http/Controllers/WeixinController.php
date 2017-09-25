@@ -125,7 +125,7 @@ class weixinController extends Controller
 
             //自动回复
             if (!empty($keyword)) {
-                if($keyword=="电影预告"){
+                if(preg_match('/[\x{4e00}-\x{9fa5}]+/u',$keyword)){
                     $msgType="news";
                     $id=$this->searchMovieId($keyword);
                     $title = $this->searchMovieTitle($id);
