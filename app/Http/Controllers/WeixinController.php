@@ -66,7 +66,6 @@ class weixinController extends Controller
                 <Url><![CDATA[%s]]></Url>
                 </item>
                 </Articles>
-                <FuncFlag>0</FuncFlag>
                 </xml>";
 //            $newsTplBody = "<item>
 //                <Title><![CDATA[%s]]></Title>
@@ -97,7 +96,7 @@ class weixinController extends Controller
 
             //订阅事件
             if ($postObj->Event == "subscribe") {
-                $msgType = "text";
+                $msgType = "news";
                 $contentStr = "欢迎关注silvan，目前属于学习测试阶段";
                 $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                 echo $resultStr;
