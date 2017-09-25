@@ -107,7 +107,7 @@ class weixinController extends Controller
             //订阅事件
             if ($postObj->Event == "subscribe") {
                 $msgType = "text";
-                $contentStr = "欢迎关注silvan，目前属于学习测试阶段";
+                $contentStr = "欢迎关注silvan，目前属于学习测试阶段.\n1.正在热映的电影.\n2.即将上映的电影";
                 $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                 echo $resultStr;
 
@@ -127,10 +127,11 @@ class weixinController extends Controller
             if (!empty($keyword)) {
                 if($keyword=="电影预告"){
                     $msgType="news";
-                    $title = $this->searchMovieTitle($keyword);
-                    $desc = $this->searchMovieSummary($keyword);
-                    $picUrl = $this->searchMovieImage($keyword);
-                    $Url = $this->searchMovieMobileUrl($keyword);
+                    $id=$this->searchMovieId($keyword);
+                    $title = $this->searchMovieTitle($id);
+                    $desc = $this->searchMovieSummary($id);
+                    $picUrl = $this->searchMovieImage($id);
+                    $Url = $this->searchMovieMobileUrl($id);
                     $results = sprintf($newsTpl, $fromUsername,$toUsername,$time,$msgType,$title, $desc, $picUrl,$Url);
                     echo  $results;
                    // $header=sprintf($newsTplHead, $fromUsername,$toUsername,$time,$msgType);
@@ -197,22 +198,22 @@ class weixinController extends Controller
         return  $summary;
     }
 
-    public  function   searchMovieTitle($movie){
-        $UrlSr='https://api.douban.com/v2/movie/search?q='.$movie;
+    public  function   searchMovieTitle($id){
+        $UrlSr='https://api.douban.com/v2/movie/subject/'.$id;
         $result = file_get_contents($UrlSr);
         $jsonArray = json_decode($result,true);
         $title=$jsonArray['title'];
         return $title;
     }
-    public  function   searchMovieImage($movie){
-        $UrlSr='https://api.douban.com/v2/movie/search?q='.$movie;
+    public  function   searchMovieImage($id){
+        $UrlSr='https://api.douban.com/v2/movie/subject/'.$id;
         $result = file_get_contents($UrlSr);
         $jsonArray = json_decode($result,true);
         $image_Url=$jsonArray['images']['large'];
         return $image_Url;
     }
-    public  function   searchMovieMobileUrl($movie){
-        $UrlSr='https://api.douban.com/v2/movie/search?q='.$movie;
+    public  function   searchMovieMobileUrl($id){
+        $UrlSr='https://api.douban.com/v2/movie/subject/'.$id;
         $result = file_get_contents($UrlSr);
         $jsonArray = json_decode($result,true);
         $mobile_url=$jsonArray['mobile_url'];
