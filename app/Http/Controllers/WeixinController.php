@@ -175,7 +175,36 @@ class weixinController extends Controller
 
                 }else{
                     $msgType = "text";
-                    $contentStr = "非常抱歉，没有搜索您的电影！";
+                    if($keyword==1)
+                    {
+                        $UrlSr='https://api.douban.com/v2/movie/in_theaters?city=重庆';
+                        $result = file_get_contents($UrlSr);
+                        $jsonArray = json_decode($result,true);
+                        $str=null;
+                        for($i=0;$i<20;$i++){
+
+                            $str=str.$jsonArray['subjects'][$i]['title']."\n";
+
+                        }
+                        $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $str);
+                        echo $resultStr;
+                    }
+                    if($keyword==2)
+                    {
+                        $UrlSr='https://api.douban.com/v2/movie/coming_soon';
+                        $result = file_get_contents($UrlSr);
+                        $jsonArray = json_decode($result,true);
+                        $str=null;
+                        for($i=0;$i<20;$i++){
+
+                            $str=str.$jsonArray['subjects'][$i]['title']."\n";
+
+                        }
+                        $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $str);
+                        echo $resultStr;
+                    }
+
+                    $contentStr = "非常抱歉，没有搜索您的电影！.\n【1】.正在热映的电影,.\n【2】.即将上映的电影\"";
                     $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                     echo $resultStr;
                 }
