@@ -12,8 +12,8 @@ class weixinController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public  function   searchMovieInfo($movie){
-        $UrlSr='https://api.douban.com/v2/movie/search?q='.$movie;
+    public  function   searchMovieInfo($movies){
+        $UrlSr='https://api.douban.com/v2/movie/search?q='.$movies;
         $result = file_get_contents($UrlSr);
         $jsonArray = json_decode($result,true);
         $id=$jsonArray['subjects'][0]['id'];
@@ -54,8 +54,8 @@ class weixinController extends Controller
             $fromUsername = $postObj->FromUserName;
             $toUsername = $postObj->ToUserName;
             $keyword = trim($postObj->Content);
-            $msgType = $postObj->MsgType;//消息类型
-            $event = $postObj->Event;//时间类型，subscribe（订阅）、unsubscribe（取消订阅）
+           // $msgType = $postObj->MsgType;//消息类型
+           // $event = $postObj->Event;//时间类型，subscribe（订阅）、unsubscribe（取消订阅）
             $time = time();
             $textTpl = "<xml>
                            <ToUserName><![CDATA[%s]]></ToUserName>
@@ -142,10 +142,15 @@ class weixinController extends Controller
                 if(preg_match('/[\x{4e00}-\x{9fa5}]+/u',$keyword)){
                     $msgType="news";
                    // $id=$this->searchMovieId($keyword);
-                    $title = $this->searchMovieInfo($keyword)[0];
-                    $desc = $this->searchMovieInfo($keyword)[1];
-                    $picUrl = $this->searchMovieInfo($keyword)[2];
-                    $Url = $this->searchMovieInfo($keyword)[3];
+//                    $title = $this->searchMovieInfo($keyword)[0];
+//                    $desc = $this->searchMovieInfo($keyword)[1];
+//                    $picUrl = $this->searchMovieInfo($keyword)[2];
+//                    $Url = $this->searchMovieInfo($keyword)[3];
+
+                     $title = "王牌保镖";
+                    $desc = "影片讲述职业杀手（塞缪尔·杰克逊 Samuel L. Jackson 饰）为了解救妻子（萨尔玛·海耶克 Salma Hayek 饰）自愿成为法庭审判一名超级罪犯（加里·奥德曼 Gary Oldman 饰）的关键证人，被警方派重兵护送出庭作证。罪犯为杀人灭口派出 雇佣兵全歼了护送部队。侥幸逃生的女探员（艾洛蒂·袁 Elodie Yung 饰）只能避开警方既定路线请来私人保镖（瑞恩·雷诺兹 Ryan Reynolds 饰）继续护送证人。殊不知二人是多年的死对头，现在却要共同抵抗雇佣兵的截杀和警方的追捕并在24小时之内从英国伦敦抵达荷兰海牙出庭作证。两人冤家聚头火花四溅，为全球观众献上一场爆笑不断的动作大片版“尖峰时刻”";
+                    $picUrl = 'https://img3.doubanio.com/view/movie_poster_cover/lpst/public/p2498055621.jpg';
+                    $Url = 'https://movie.douban.com/subject/22266126/mobile';
                     $results = sprintf($newsTpl, $fromUsername,$toUsername,$time,$msgType,$title, $desc, $picUrl,$Url);
                     echo  $results;
                    // $header=sprintf($newsTplHead, $fromUsername,$toUsername,$time,$msgType);
