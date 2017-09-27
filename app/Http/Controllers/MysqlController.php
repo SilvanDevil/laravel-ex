@@ -7,7 +7,7 @@ class  MysqlController extends   Controller
 {
     public function  test()
     {
-        $students = DB::select('select * from student ');
+        $students = DB::select('select * from students ');
         dd($students);
         //   $students =  DB::insert('insert into student(name,age) values(?,?)',['duanhua',18] );
       //  $students = DB::update('update student set age = ? where  name = ?' ,[20,'duanhua']);
