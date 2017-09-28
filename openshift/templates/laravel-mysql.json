@@ -470,7 +470,7 @@
   }, {
     "name": "DATABASE_NAME",
     "displayName": "Database Name",
-    "value": "mysqltest",
+    "value": "default",
     "required": true
   }, {
     "name": "DATABASE_USER",
