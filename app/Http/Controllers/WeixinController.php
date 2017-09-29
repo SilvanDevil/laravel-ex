@@ -31,12 +31,12 @@ class weixinController extends Controller
     //验证消息
     public function api()
     {
-//        $echoStr = $_GET["echostr"];
-//        if ($this->checkSignature()) {
-//            echo $echoStr;
-//            exit;
-//        }
-//    }
+       $echoStr = $_GET["echostr"];
+       if ($this->checkSignature()) {
+           echo $echoStr;
+           exit;
+       }
+   }
         //get post data, May be due to the different environments
         //   $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];//php:input  收不到信息!!!!!!
         $postStr = file_get_contents("php://input");
