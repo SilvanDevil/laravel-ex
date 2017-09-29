@@ -181,9 +181,9 @@ class weixinController extends Controller
                         $result = file_get_contents($UrlSr);
                         $jsonArray = json_decode($result,true);
                         $str=null;
-                        for($i=0;$i<10;$i++){
+                        for($i=0;$i<30;$i++){
 
-                            $str=str.$jsonArray['subjects'][$i]['title']."\n";
+                            $str=$str.$jsonArray['subjects'][$i]['title']."\n";
 
                         }
                         $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $str);
