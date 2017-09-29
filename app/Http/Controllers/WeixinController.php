@@ -181,7 +181,7 @@ class weixinController extends Controller
                         $result = file_get_contents($UrlSr);
                         $jsonArray = json_decode($result,true);
                         $str=null;
-                        for($i=0;$i<30;$i++){
+                        for($i=0;$i<20;$i++){
 
                             $str=$str.$jsonArray['subjects'][$i]['title']."\n";
 
@@ -194,16 +194,22 @@ class weixinController extends Controller
                         $UrlSr='https://api.douban.com/v2/movie/coming_soon';
                         $result = file_get_contents($UrlSr);
                         $jsonArray = json_decode($result,true);
-                        $str=$jsonArray['subjects'][0]['title']
-                            ."\n".$jsonArray['subjects'][1]['title']
-                            ."\n".$jsonArray['subjects'][2]['title']
-                            ."\n".$jsonArray['subjects'][3]['title']
-                            ."\n".$jsonArray['subjects'][4]['title']
-                            ."\n".$jsonArray['subjects'][5]['title']
-                            ."\n".$jsonArray['subjects'][6]['title']
-                            ."\n".$jsonArray['subjects'][7]['title']
-                            ."\n".$jsonArray['subjects'][8]['title']
-                            ."\n".$jsonArray['subjects'][9]['title'];
+                        $str=null;
+                        for($i=0;$i<20;$i++){
+
+                            $str=$str.$jsonArray['subjects'][$i]['title']."\n";
+
+                        }
+//                        $str=$jsonArray['subjects'][0]['title']
+//                            ."\n".$jsonArray['subjects'][1]['title']
+//                            ."\n".$jsonArray['subjects'][2]['title']
+//                            ."\n".$jsonArray['subjects'][3]['title']
+//                            ."\n".$jsonArray['subjects'][4]['title']
+//                            ."\n".$jsonArray['subjects'][5]['title']
+//                            ."\n".$jsonArray['subjects'][6]['title']
+//                            ."\n".$jsonArray['subjects'][7]['title']
+//                            ."\n".$jsonArray['subjects'][8]['title']
+//                            ."\n".$jsonArray['subjects'][9]['title'];
                       
                         $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $str);
                         echo $resultStr;
