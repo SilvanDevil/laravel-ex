@@ -17,5 +17,5 @@ Route::get('/', function () {
 Route::get('home/{id}', 'Testtest@info');
 Route::get('query', 'MysqlController@query');
 Route::get('test', 'MysqlController@test');
-Route::get('weixin/api', 'WeixinController@api');
-Route::post('weixin/api', 'WeixinController@api');
+Route::get('weixin/api', 'WeixinController@checkSignature');
+Route::post('weixin/api', 'WeixinController@checkSignature');
