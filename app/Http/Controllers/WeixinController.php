@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use DB;
 use App\Http\Requests;
 use Illuminate\Http\Request;
-class weixinController extends Controller
+class WeixinController extends Controller
 {
     /**
      * Show the application dashboard.
