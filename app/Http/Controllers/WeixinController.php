@@ -11,6 +11,15 @@ class weixinController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+      public function valid()
+    {
+        $echoStr = $_GET["echostr"];
+        //valid signature , option
+        if($this->checkSignature()){
+            echo $echoStr;
+            exit;
+        }
+    }
 //
 //    public  function   searchMovieInfo($movies){
 //        $UrlSr='https://api.douban.com/v2/movie/search?q='.$movies;
