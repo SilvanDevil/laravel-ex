@@ -38,16 +38,6 @@ class weixinController extends Controller
 //    }
 
 
-    public function valid()
-    {
-        $echoStr = $_GET["echostr"];
-        //valid signature , option
-        if($this->checkSignature()){
-            echo $echoStr;
-            exit;
-        }
-    }
-
     //验证消息
     public function api()
     {
