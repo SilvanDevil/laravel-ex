@@ -235,7 +235,7 @@ class weixinController extends Controller
     }
 
     //检查签名
-    private function checkSignature()
+    public function checkSignature()
     {
         $signature = $_GET["signature"];
         $timestamp = $_GET["timestamp"];
