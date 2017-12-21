@@ -4,13 +4,22 @@ namespace App\Http\Controllers;
 use DB;
 use App\Http\Requests;
 use Illuminate\Http\Request;
-class weixinController extends Controller
+class WeixinController extends Controller
 {
     /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Http\Response
      */
+      public function valid()
+    {
+        $echoStr = $_GET["echostr"];
+        //valid signature , option
+        if($this->checkSignature()){
+            echo $echoStr;
+            exit;
+        }
+    }
 //
 //    public  function   searchMovieInfo($movies){
 //        $UrlSr='https://api.douban.com/v2/movie/search?q='.$movies;
@@ -27,6 +36,7 @@ class weixinController extends Controller
 //        $arrayInfo=array($title,$summary,$image_Url,$mobile_url);
 //        return $arrayInfo;
 //    }
+
 
     //验证消息
     public function api()
@@ -240,7 +250,7 @@ class weixinController extends Controller
         $signature = $_GET["signature"];
         $timestamp = $_GET["timestamp"];
         $nonce = $_GET["nonce"];
-        $token = "dhsilvan";
+        $token = "dhvaild";
         $tmpArr = array($token, $timestamp, $nonce);
         sort($tmpArr, SORT_STRING);
         $tmpStr = implode($tmpArr);
