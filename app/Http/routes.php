@@ -14,7 +14,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('home/{id}', 'Testtest@info');
+//Route::get('home/{id}', 'Testtest@info');
+Route::get('home', 'Testtest@info');
 Route::get('query', 'MysqlController@query');
 Route::get('test', 'MysqlController@test');
 Route::get('crawler', 'test@gettest');
