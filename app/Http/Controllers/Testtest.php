@@ -10,18 +10,47 @@ class Testtest extends  Controller
     {
         $htm = new simple_html_dom();
        // $htm = file_get_html('http://theater.mtime.com/China_Chongqing/');
-        $htm->load_file('http://theater.mtime.com/China_Chongqing/');
+        $htm->load_file('http://cq.qq.com/');
         //$xml = simplexml_load_string($htm);
-        $ret = $htm->find('a');
+       // $ret = $htm->find('a');
+       // $rest = $htm->find('div',10)->class='top-news';
+        $ret = $htm->find('div.top-news');;
+       foreach ($ret as  $re)
+       {
+           foreach ($re->find('a')as  $se )
+           {
+               echo $se.'<br/>';
+           }
+       }
+    }
 
-        //foreach ($ret as  $re)
+    public function  testmysql()
+    {
 
-        for($i=0;$i<count($ret);$i++){
-
-           $re[$i]  =  $ret[$i];
-
+        $mysqli = new mysqli("localhost", "root", "password");
+        if(!$mysqli)  {
+            echo"database error";
+        }else{
+            echo"php env successful";
         }
-        echo $re[10]->plaintext.'<br/>';
+        $mysqli->close();
+
+
+
+    }
+
+
+        //
+
+//        for($i=0;$i<count($ret);$i++){
+//
+//           $re[$i]  =  $ret[$i];
+//
+//
+//        }
+        //foreach ($ret as  $re)
+       // echo $re->plaintext.'<br/>';
+       //  foreach ($res as  $re)
 
 //        $ch = curl_init();
 //        curl_setopt($ch,CURLOPT_URL,"http://gaoqing.la");
@@ -83,7 +112,7 @@ class Testtest extends  Controller
 //        }
        // return  view('test/test',['test1'=>'123456','test2'=>'abcdef']);
 
-    }
+
 }
 
 
