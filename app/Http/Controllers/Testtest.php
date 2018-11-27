@@ -27,7 +27,7 @@ class Testtest extends  Controller
     public function  testmysql()
     {
 
-        $mysqli = new mysql_connect("localhost", "root", "password");
+        $mysqli = new mysql_connect("localhost", "laravel", "blHbLuhv4lQAARqy");
         if(!$mysqli)  {
             echo"database error";
         }else{
